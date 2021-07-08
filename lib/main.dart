@@ -1,40 +1,34 @@
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter/material.dart';
-import 'dart:js' as js;
 
-void main() => runApp(MyApp());
+import 'ui/home_screen.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+void main() => runApp(Portfolio());
+
+class Portfolio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sthefano Schiavon Portfolio',
+      themeMode: ThemeMode.dark,
+      theme: ThemeData.dark(),
       home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Sthefano Schiavon'),
+      builder: (context, widget) => Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage(
+            'images/scaffold.jpg',
+          ),
+          fit: BoxFit.cover,
+          alignment: Alignment.bottomCenter,
+        )),
+        child: ResponsiveWrapper.builder(
+          widget,
+          defaultScale: true,
+          maxWidth: 640,
+          minWidth: 600,
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          js.context.callMethod('open', ['https://google.com']);
-        },
-        tooltip: 'Google',
-        child: Icon(Icons.open_in_new),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
